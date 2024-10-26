@@ -49,7 +49,7 @@ async def handle_intent(update: Update, context: CallbackContext) -> None:
     elif "пока" in message:
         await update.message.reply_text(messages.get("farewell", "До свидания!"))
     else:
-	    await update.message.reply_text(messages.get("error", "ошибули"))
+	await update.message.reply_text(messages.get("error", "ошибули"))
 	
 def main():
     app = Application.builder().token(TOKEN).build()
