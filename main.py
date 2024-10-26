@@ -78,16 +78,20 @@ async def verify_contract(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
 async def handle_intent(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = update.message.text.lower()
-    if "привет" in message:
-        await update.message.reply_text(messages.get("greetings", "Привет!"))
-    elif "пока" in message:
-        await update.message.reply_text(messages.get("farewell", "До свидания!"))
-    elif "тариф" in message:
+    if "тариф" in message:
         await update.message.reply_text(messages.get("tariffs", "Вот тарифы на выбор:"))
     elif "клиент" in message:
         await update.message.reply_text(messages.get("client", "Добро пожаловать!"))
-    elif "контракт" in message:
+    elif "договор" in message:
         await update.message.reply_text(messages.get("contract", "Введите данные"))
+    elif "поддержка" in message:
+        await update.message.reply_text(messages.get("hotline", "Введите данные"))
+    elif "привет" in message:
+        await update.message.reply_text(messages.get("greetings", "Привет!"))
+    elif "пока" in message:
+        await update.message.reply_text(messages.get("farewell", "До свидания!"))
+    else:
+	    await update.message.reply_text(messages.get("error", "ошибули"))
 
 def main():
     app = Application.builder().token(TOKEN).build()
