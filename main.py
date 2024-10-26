@@ -72,9 +72,9 @@ async def request_contract_number(update: Update, context: ContextTypes.DEFAULT_
 async def verify_contract(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     contract_number = update.message.text
     if check_contract_in_db(contract_number):
-        await update.message.reply_text("Идентификация успешна. Добро пожаловать!")
+        await update.message.reply_text("yescon")
     else:
-        await update.message.reply_text("Номер договора не найден. Проверьте номер и попробуйте снова.")
+        await update.message.reply_text("nocon")
 
 async def handle_intent(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     message = update.message.text.lower()
