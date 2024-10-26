@@ -6,7 +6,7 @@ from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackContext
 
 TOKEN = "8111640966:AAH4GeOlltSX7Qnu0woBD4voyEzLkqNm4b0"
-model_path = "C://Users//Eden Despoyno//Desktop//vosk-model-ru-0.22"
+model_path = "C://Users//Eden Despoyno//Desktop//vosk-model-ru-0.22" #тут должен быть путь к локальной модели
 messages = {}
 try:
     model = Model(model_path)
