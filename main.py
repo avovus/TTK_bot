@@ -5,6 +5,8 @@ from vosk import Model, KaldiRecognizer
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackContext
 
+c = 0
+
 TOKEN = "8111640966:AAH4GeOlltSX7Qnu0woBD4voyEzLkqNm4b0"
 model_path = "C://Users//Eden Despoyno//Desktop//vosk-model-ru-0.22" #тут должен быть путь к локальной модели
 messages = {}
@@ -44,7 +46,7 @@ import requests
 async def handle_voice_message(update: Update, context: CallbackContext) -> None:
     voice_file = await context.bot.get_file(update.message.voice.file_id)
     voice_file_path = "voice_message.ogg"
-
+    global c
     file_url = voice_file.file_path
     response = requests.get(file_url)
     with open(voice_file_path, "wb") as f:
@@ -52,7 +54,7 @@ async def handle_voice_message(update: Update, context: CallbackContext) -> None
 
     wav_file_path = "voice_message.wav"
     os.system(f"ffmpeg -i {voice_file_path} -ar 16000 -ac 1 {wav_file_path}")
-
+    wav_file_path = "voice_message" + str(c) + ".wav"
     recognized_text = voice_to_text(wav_file_path)
     await update.message.reply_text(f"Распознанный текст: {recognized_text}")
 
@@ -91,7 +93,7 @@ async def handle_intent(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     elif "пока" in message:
         await update.message.reply_text(messages.get("farewell", "До свидания!"))
     else:
-	    await update.message.reply_text(messages.get("error", "ошибули"))
+        await update.message.reply_text(messages.get("error", "ошибули"))
 
 def main():
     app = Application.builder().token(TOKEN).build()
