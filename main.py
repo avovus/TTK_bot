@@ -70,6 +70,8 @@ async def handle_voice_message(update: Update, context: CallbackContext) -> None
         needCheckCode = False
     elif "тариф" in message:
         await update.message.reply_text(messages.get("tariffs", "Вот тарифы на выбор:"))
+    elif "услуги" in message:
+        await update.message.reply_text(messages.get("services", "Вот список доп. усулг:"))
     elif "клиент" in message:
         await update.message.reply_text(messages.get("client", "Добро пожаловать!"))
     elif "договор" in message:
