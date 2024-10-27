@@ -1,6 +1,7 @@
 import os
 import json
 import wave
+
 from vosk import Model, KaldiRecognizer
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes, CallbackContext
@@ -54,9 +55,26 @@ async def handle_voice_message(update: Update, context: CallbackContext) -> None
 
     wav_file_path = "voice_message.wav"
     os.system(f"ffmpeg -i {voice_file_path} -ar 16000 -ac 1 {wav_file_path}")
-    wav_file_path = "voice_message" + str(c) + ".wav"
+    wav_file_path = "voice_message.wav"
     recognized_text = voice_to_text(wav_file_path)
-    await update.message.reply_text(f"Распознанный текст: {recognized_text}")
+    #await update.message.reply_text(f"Распознанный текст: {recognized_text}")
+
+    message = recognized_text
+    if "тариф" in message:
+        await update.message.reply_text(messages.get("tariffs", "Вот тарифы на выбор:"))
+    elif "клиент" in message:
+        await update.message.reply_text(messages.get("client", "Добро пожаловать!"))
+    elif "договор" in message:
+        await update.message.reply_text(messages.get("contract", "Введите данные"))
+    elif "поддержка" in message:
+        await update.message.reply_text(messages.get("hotline", "Введите данные"))
+    elif "привет" in message:
+        await update.message.reply_text(messages.get("greetings", "Привет!"))
+    elif "пока" in message:
+        await update.message.reply_text(messages.get("farewell", "До свидания!"))
+    else:
+        await update.message.reply_text(messages.get("error", "ошибка"))
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     reply_keyboard = [["Войти как клиент ТТК", "Заключить договор"]]
